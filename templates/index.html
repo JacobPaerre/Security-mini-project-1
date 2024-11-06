@@ -82,18 +82,6 @@
                         <i class="fab fa-twitter fa-stack-1x"></i>
                     </a>
                 </span>
-
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        <ul class=flashes>
-                        {% for message in messages %}
-                            <li>{{ message }}</li>
-                        {% endfor %}
-                        </ul>
-                    {% endif %}
-                {% endwith %}
-                {% block body %}{% endblock %}
-
             </span>
         </div>
     </nav> <!-- end of navbar -->
