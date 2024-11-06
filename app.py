@@ -176,6 +176,12 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
+@app.route('/reveal-password')
+def reveal_password():
+    password = "your_secret_password"  # Replace with the actual password
+    flash(f'The password is: {password}')
+    return redirect(url_for('index'))
+
 if __name__ == "__main__":
     #create database if it doesn't exist yet
     if not os.path.exists(app.database):

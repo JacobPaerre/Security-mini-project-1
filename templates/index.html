@@ -77,11 +77,22 @@
                     </a>
                 </span>
                 <span class="fa-stack">
-                    <a href="#your-link">
+                    <a href="{{ url_for('reveal_password') }}">
                         <span class="hexagon"></span>
                         <i class="fab fa-twitter fa-stack-1x"></i>
                     </a>
                 </span>
+
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
+
             </span>
         </div>
     </nav> <!-- end of navbar -->
