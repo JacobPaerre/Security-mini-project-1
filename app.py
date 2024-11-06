@@ -119,6 +119,7 @@ def login():
         statement = "SELECT id, username, password FROM users WHERE username = ?;"
         c.execute(statement, (username,))
         result = c.fetchone()
+        print(f"Result from DB: {result}")
 
         if result and check_password_hash(result[2], password):
             session.clear()
