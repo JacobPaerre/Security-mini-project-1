@@ -1,5 +1,6 @@
 import json, sqlite3, click, functools, os, hashlib,time, random, sys, secrets
 from flask import Flask, current_app, g, session, redirect, render_template, url_for, request
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 
@@ -32,12 +33,12 @@ CREATE TABLE users (
     password TEXT NOT NULL
 );
 
-INSERT INTO users VALUES(null,"admin", "password");
-INSERT INTO users VALUES(null,"bernardo", "omgMPC");
+INSERT INTO users VALUES(null,"admin", ?);
+INSERT INTO users VALUES(null,"bernardo", ?);
 INSERT INTO notes VALUES(null,2,"1993-09-23 10:10:10","hello my friend",1234567890);
 INSERT INTO notes VALUES(null,2,"1993-09-23 12:10:10","i want lunch pls",1234567891);
 
-""")
+""", (generate_password_hash("password"), generate_password_hash("omgMPC")))
 
 
 
@@ -113,18 +114,19 @@ def login():
         password = request.form['password']
         db = connect_db()
         c = db.cursor()
-        statement = "SELECT * FROM users WHERE username = ? AND password = ?;"
-        c.execute(statement, (username, password))
-        result = c.fetchall()
+        statement = "SELECT id, username, password FROM users WHERE username = ?;"
+        c.execute(statement, (username,))
+        result = c.fetchone()
 
-        if len(result) > 0:
+        if result and check_password_hash(result[2], password):
             session.clear()
             session['logged_in'] = True
-            session['userid'] = result[0][0]
-            session['username']=result[0][1]
-            return redirect(url_for('index'))
+            session['userid'] = result[0]
+            session['username']=result[1]
+            return redirect(url_for('index'))        
         else:
             error = "Wrong username or password!"
+        db.close()
     return render_template('login.html',error=error)
 
 
@@ -153,9 +155,10 @@ def register():
             usererror = "That username is already in use by someone else!"
 
         if(not errored):
+            hashed_password = generate_password_hash(password)
             statement = """INSERT INTO users(id,username,password) VALUES(null,?,?);"""
             print(statement)
-            c.execute(statement, (username,password))
+            c.execute(statement, (username, hashed_password))
             db.commit()
             db.close()
             return f"""<html>
