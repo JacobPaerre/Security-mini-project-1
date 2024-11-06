@@ -23,3 +23,15 @@ We have fixed this vulnerability by sanitizing the input and making the queries 
 statement = "SELECT * FROM notes WHERE assocUser = ?;"
 c.execute(statement, (session['userid'],))
 ```
+
+To do this when initializing the database, we can not use executescript, as it does not support parameterized queries. Therefore, we use execute instead.
+
+
+### Hash passwords
+
+We have also fixed the vulnerability of storing passwords in plain text. We now hash the passwords before storing them in the database. We use werkzeug.security for this.
+
+### Do not check if or inform about passwords already in use when registering
+
+We have fixed the vulnerability of informing the user if a password is already in use when registering. This was a security risk, as it could be used to guess passwords.
+Different users should be able to use the same password, so we have removed this check completely. The user will now be informed if the username is already in use, but not if the password is already in use, and the user will be able to register with the same password as another user. 
