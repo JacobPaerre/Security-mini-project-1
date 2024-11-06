@@ -78,7 +78,6 @@ def notes():
             db = connect_db()
             c = db.cursor()
             statement = """INSERT INTO notes(id,assocUser,dateWritten,note,publicID) VALUES(null,?,?,?,?);"""
-            print(statement)
             c.execute(statement, (session['userid'], time.strftime('%Y-%m-%d %H:%M:%S'), note, secrets.below(9999999999)))
             db.commit()
             db.close()
@@ -101,10 +100,8 @@ def notes():
     db = connect_db()
     c = db.cursor()
     statement = "SELECT * FROM notes WHERE assocUser = ?;"
-    print(statement)
     c.execute(statement, (session['userid'],))
     notes = c.fetchall()
-    print(notes)
     
     return render_template('notes.html',notes=notes,importerror=importerror)
 
@@ -120,7 +117,6 @@ def login():
         statement = "SELECT id, username, password FROM users WHERE username = ?;"
         c.execute(statement, (username,))
         result = c.fetchone()
-        print(f"Result from DB: {result}")
 
         if result and check_password_hash(result[2], password):
             session.clear()
@@ -155,7 +151,6 @@ def register():
         if(not errored):
             hashed_password = generate_password_hash(password)
             statement = """INSERT INTO users(id,username,password) VALUES(null,?,?);"""
-            print(statement)
             c.execute(statement, (username, hashed_password))
             db.commit()
             db.close()
