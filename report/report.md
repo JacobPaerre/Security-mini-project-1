@@ -40,3 +40,9 @@ Different users should be able to use the same password, so we have removed this
 ### Cross-site scripting attacks (XSS)
 
 To ensure that it is not possible to write any html code that will corrupt or run malicious scripts on our program we have added a sanitize to the note input field on our website. This checks for any malicious input and sanitizes it accordingly. This is done by using the bleach library and adding a function sanitize_input that is run before the value of the note input field is used in the code.
+
+### Secure Session Cookies 
+
+We have set the session cookie to be secure, so it will only be sent over HTTPS. This is done by setting the `SESSION_COOKIE_SECURE` to `True` in the config.
+We also set the `SESSION_COOKIE_HTTPONLY` to `True` to prevent the cookie from being accessed by JavaScript.
+

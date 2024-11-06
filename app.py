@@ -53,8 +53,7 @@ app.secret_key = os.urandom(32)
 
 app.config.update(
     SESSION_COOKIE_SECURE=True,
-    SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SAMESITE='Lax'
+    SESSION_COOKIE_HTTPONLY=True
 )
 
 ALLOWED_TAGS = ['b', 'i', 'u', 'p', 'br']
