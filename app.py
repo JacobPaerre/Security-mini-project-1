@@ -1,6 +1,7 @@
 import json, sqlite3, click, functools, os, hashlib,time, random, sys, secrets
 from flask import Flask, current_app, g, session, redirect, render_template, url_for, request
 from werkzeug.security import generate_password_hash, check_password_hash
+import bleach
 
 
 
@@ -50,6 +51,13 @@ app = Flask(__name__)
 app.database = "db.sqlite3"
 app.secret_key = os.urandom(32)
 
+ALLOWED_TAGS = ['b', 'i', 'u', 'p', 'br']
+ALLOWED_ATTRIBUTES = {}
+
+# Sanitize input function using bleach
+def sanitize_input(input_text):
+    return bleach.clean(input_text, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES)
+
 ### ADMINISTRATOR'S PANEL ###
 def login_required(view):
     @functools.wraps(view)
@@ -74,7 +82,7 @@ def notes():
     #Posting a new note:
     if request.method == 'POST':
         if request.form['submit_button'] == 'add note':
-            note = request.form['noteinput']
+            note = sanitize_input(request.form['noteinput'])
             db = connect_db()
             c = db.cursor()
             statement = """INSERT INTO notes(id,assocUser,dateWritten,note,publicID) VALUES(null,?,?,?,?);"""
