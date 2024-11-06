@@ -31,14 +31,16 @@ CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
     password TEXT NOT NULL
-);
+);""")
+    
 
-INSERT INTO users VALUES(null,"admin", ?);
-INSERT INTO users VALUES(null,"bernardo", ?);
-INSERT INTO notes VALUES(null,2,"1993-09-23 10:10:10","hello my friend",1234567890);
-INSERT INTO notes VALUES(null,2,"1993-09-23 12:10:10","i want lunch pls",1234567891);
+    db.execute("INSERT INTO users (username, password) VALUES (?, ?);", ("admin", generate_password_hash("password")))
+    db.execute("INSERT INTO users (username, password) VALUES (?, ?);", ("bernardo", generate_password_hash("omgMPC")))
+    db.execute("INSERT INTO notes (assocUser, dateWritten, note, publicID) VALUES (?, ?, ?, ?);", (2, "1993-09-23 10:10:10", "hello my friend", 1234567890))
+    db.execute("INSERT INTO notes (assocUser, dateWritten, note, publicID) VALUES (?, ?, ?, ?);", (2, "1993-09-23 12:10:10", "i want lunch pls", 1234567891))
 
-""", (generate_password_hash("password"), generate_password_hash("omgMPC")))
+    conn.commit()
+    conn.close()
 
 
 
