@@ -11,14 +11,14 @@ Made by Alex, Carmen, Daniel, & Jacob
     - [Cross-site scripting attacks (XSS)](#cross-site-scripting-attacks-xss)
     - [Secure Session Cookies](#secure-session-cookies)
   - [Introduced vulnerabilities](#introduced-vulnerabilities)
-    - [1:](#1)
+    - [1: SQL Injection](#1-sql-injection)
     - [2:](#2)
 
 ## Fixed vulnerabilities
 
 ### Using `secrets`-library instead of rand
 
-We chose to repalce the rand-method with the `secrets`' modules method for getting a random number. This is because the rand method is actually predictable if the seed is known or guessed. `secrets` is also a module that is used to generate cryptographically strong random numbers suitable for managing data.
+We chose to replace the rand-method with the `secrets`' modules method for getting a random number. This is because the rand method is actually predictable if the seed is known or guessed. `secrets` is also a module that is used to generate cryptographically strong random numbers suitable for managing data.
 
 ### Fixing SQL injection
 
@@ -29,18 +29,18 @@ statement = "SELECT * FROM notes WHERE assocUser = %s;" %session['userid']
 c.execute(statement)
 ```
 
-We have fixed this vulnerability by sanitizing the input and making the queries parameterized:
+We have fixed this vulnerability by making the queries parameterized:
 
 ```python
 statement = "SELECT * FROM notes WHERE assocUser = ?;"
 c.execute(statement, (session['userid'],))
 ```
 
-To do this when initializing the database, we can not use executescript, as it does not support parameterized queries. Therefore, we use execute instead.
+To do this when initializing the database, we can not use `executescript`, as it does not support parameterized queries. Therefore, we use execute instead.
 
 ### Hash passwords
 
-We have also fixed the vulnerability of storing passwords in plain text. We now hash the passwords before storing them in the database. We use werkzeug.security for this.
+We have also fixed the vulnerability of storing passwords in plain text. We now hash the passwords before storing them in the database. We use `werkzeug.security`-module for this.
 
 ### Do not check if or inform about passwords already in use when registering
 
@@ -58,6 +58,6 @@ We also set the `SESSION_COOKIE_HTTPONLY` to `True` to prevent the cookie from b
 
 ## Introduced vulnerabilities
 
-### 1:
+### 1: SQL Injection
 
 ### 2:
