@@ -1,4 +1,4 @@
-import json, sqlite3, click, functools, os, hashlib,time, random, sys
+import json, sqlite3, click, functools, os, hashlib,time, random, sys, secrets
 from flask import Flask, current_app, g, session, redirect, render_template, url_for, request
 
 
@@ -74,8 +74,8 @@ def notes():
             db = connect_db()
             c = db.cursor()
             statement = """INSERT INTO notes(id,assocUser,dateWritten,note,publicID) VALUES(null,?,?,?,?);"""
-            print(statement, (session['userid'],time.strftime('%Y-%m-%d %H:%M:%S'),note,random.randrange(1000000000, 9999999999)))
-            c.execute(statement)
+            print(statement)
+            c.execute(statement, (session['userid'], time.strftime('%Y-%m-%d %H:%M:%S'), note, secrets.below(9999999999)))
             db.commit()
             db.close()
         elif request.form['submit_button'] == 'import note':
@@ -83,7 +83,7 @@ def notes():
             db = connect_db()
             c = db.cursor()
             statement = """SELECT * from NOTES where publicID = ?"""
-            c.execute(statement, (noteid))
+            c.execute(statement, (noteid,))
             result = c.fetchall()
             if(len(result)>0):
                 row = result[0]
@@ -97,8 +97,8 @@ def notes():
     db = connect_db()
     c = db.cursor()
     statement = "SELECT * FROM notes WHERE assocUser = ?;"
-    print(statement, (session['userid']))
-    c.execute(statement)
+    print(statement)
+    c.execute(statement, (session['userid'],))
     notes = c.fetchall()
     print(notes)
     
@@ -142,12 +142,12 @@ def register():
         c = db.cursor()
         pass_statement = """SELECT * FROM users WHERE password = ?;"""
         user_statement = """SELECT * FROM users WHERE username = ?;"""
-        c.execute(pass_statement, (password))
+        c.execute(pass_statement, (password,))
         if(len(c.fetchall())>0):
             errored = True
             passworderror = "That password is already in use by someone else!"
 
-        c.execute(user_statement, (username))
+        c.execute(user_statement, (username,))
         if(len(c.fetchall())>0):
             errored = True
             usererror = "That username is already in use by someone else!"
@@ -155,7 +155,7 @@ def register():
         if(not errored):
             statement = """INSERT INTO users(id,username,password) VALUES(null,?,?);"""
             print(statement)
-            c.execute(statement, ((username,password)))
+            c.execute(statement, (username,password))
             db.commit()
             db.close()
             return f"""<html>
