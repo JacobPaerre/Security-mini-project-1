@@ -51,6 +51,12 @@ app = Flask(__name__)
 app.database = "db.sqlite3"
 app.secret_key = os.urandom(32)
 
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE='Lax'
+)
+
 ALLOWED_TAGS = ['b', 'i', 'u', 'p', 'br']
 ALLOWED_ATTRIBUTES = {}
 
