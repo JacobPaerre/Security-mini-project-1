@@ -159,17 +159,8 @@ def register():
             c.execute(statement, (username, hashed_password))
             db.commit()
             db.close()
-            return f"""<html>
-                        <head>
-                            <meta http-equiv="refresh" content="2;url=/" />
-                        </head>
-                        <body>
-                            <h1>SUCCESS!!! Redirecting in 2 seconds...</h1>
-                        </body>
-                        </html>
-                        """
+            return redirect(url_for('index'))
         
-        db.commit()
         db.close()
     return render_template('register.html',usererror=usererror)
 
