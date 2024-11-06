@@ -6,4 +6,7 @@ if [ "$1" = "start" ]; then
 elif [ "$1" = "stop" ]; then
 	echo "Stopping server..."
 	pkill -f python3
+elif [ "$1" = "killdb" ]; then
+	rm db.sqlite3
+	echo "Database DEAD"
 fi
