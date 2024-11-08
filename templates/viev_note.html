@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Note</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href={{ url_for('static',filename='css/bootstrap.css') }} rel="stylesheet">
+    <link href={{ url_for('static',filename='css/fontawesome-all.css') }} rel="stylesheet">
+    <link href={{ url_for('static',filename='css/swiper.css') }} rel="stylesheet">
+    <link href={{ url_for('static',filename='css/magnific-popup.css') }} rel="stylesheet">
+    <link href={{ url_for('static',filename='css/styles.css') }} rel="stylesheet">
+</head>
+<body style="background-color:#fff;">
+    <section class="notes__background-image">
+        <a href="/logout/" class="notes__logout btn-solid-lg">Logout</a>
+        <article class="notes__background-title-container">
+            <h1 class="notes__title">Note Details</h1>
+        </article>
+    </section>
+    <section class="notes__body-content notes__body-top-padding">
+        <ul class="notes__item-container">
+            {% include "note.html" %}
+        </ul>
+    </section>
+    <!-- Scripts -->
+    <script src={{ url_for('static',filename='js/jquery.min.js') }}></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src={{ url_for('static',filename='js/popper.min.js') }}></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src={{ url_for('static',filename='js/bootstrap.min.js') }}></script> <!-- Bootstrap framework -->
+</body>
+</html>

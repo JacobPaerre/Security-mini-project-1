@@ -114,6 +114,25 @@ def notes():
     
     return render_template('notes.html',notes=notes,importerror=importerror)
 
+@app.route("/note/")
+def view_note():
+    noteid = request.args.get('noteid')
+    if not noteid:
+        return "Note ID is required", 400
+
+    db = connect_db()
+    c = db.cursor()
+    # SQL Injection vulnerability
+    statement = f"""SELECT * FROM notes WHERE publicID = '{noteid}'"""
+    c.execute(statement)
+    note = c.fetchone()
+    db.close()
+
+    if not note:
+        return "Note not found", 404
+
+    return render_template('view_note.html', note=note)
+
 
 @app.route("/login/", methods=('GET', 'POST'))
 def login():
