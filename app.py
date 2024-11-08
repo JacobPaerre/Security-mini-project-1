@@ -36,7 +36,7 @@ def init_db():
     """)
     
 
-    db.execute("INSERT INTO users (username, password) VALUES (?, ?);", ("admin", generate_password_hash("password")))
+    db.execute("INSERT INTO users (username, password) VALUES (?, ?);", ("admin", generate_password_hash("st0rTRexRawr!")))
     db.execute("INSERT INTO users (username, password) VALUES (?, ?);", ("bernardo", generate_password_hash("omgMPC")))
     db.execute("INSERT INTO notes (assocUser, dateWritten, note, publicID) VALUES (?, ?, ?, ?);", (2, "1993-09-23 10:10:10", "hello my friend", 1234567890))
     db.execute("INSERT INTO notes (assocUser, dateWritten, note, publicID) VALUES (?, ?, ?, ?);", (2, "1993-09-23 12:10:10", "i want lunch pls", 1234567891))
@@ -114,7 +114,7 @@ def notes():
     
     return render_template('notes.html',notes=notes,importerror=importerror)
 
-@app.route("/note/")
+@app.route("/note")
 def view_note():
     noteid = request.args.get('noteid')
     if not noteid:
@@ -124,14 +124,14 @@ def view_note():
     c = db.cursor()
     # SQL Injection vulnerability
     statement = f"""SELECT * FROM notes WHERE publicID = '{noteid}'"""
+    print(statement)
     c.execute(statement)
-    note = c.fetchone()
+    note = c.fetchall()
     db.close()
 
-    if not note:
-        return "Note not found", 404
+    print(note)
 
-    return render_template('view_note.html', note=note)
+    return note
 
 
 @app.route("/login/", methods=('GET', 'POST'))
