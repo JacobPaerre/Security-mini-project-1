@@ -53,7 +53,7 @@ def init_db():
     db.execute("INSERT INTO notes (assocUser, dateWritten, note, publicID) VALUES (?, ?, ?, ?);", (2, "1993-09-23 18:30:30", "Password and credentials must be kept secure", 1234567903))
     db.execute("INSERT INTO notes (assocUser, dateWritten, note, publicID) VALUES (?, ?, ?, ?);", (2, "1993-09-23 19:20:15", "This document contains secret notes and login credentials", 1234567904))
     db.execute("INSERT INTO notes (assocUser, dateWritten, note, publicID) VALUES (?, ?, ?, ?);", (2, "1993-09-23 20:15:50", "Handle the password data with extreme caution", 1234567905))
-    db.execute("INSERT INTO notes (assocUser, dateWritten, note, publicID) VALUES (?, ?, ?, ?);", (2, "1993-09-23 21:00:00", "The username is the last letter of the words in one note that is not like the others", 1234567906))
+    db.execute("INSERT INTO notes (assocUser, dateWritten, note, publicID) VALUES (?, ?, ?, ?);", (2, "1993-09-23 21:00:00", "The username is mentioned in one note that is not like the others", 1234567906))
     db.execute("INSERT INTO notes (assocUser, dateWritten, note, publicID) VALUES (?, ?, ?, ?);", (2, "1993-09-23 21:30:30", "All credentials are saved in the secure notes", 1234567907))
     db.execute("INSERT INTO notes (assocUser, dateWritten, note, publicID) VALUES (?, ?, ?, ?);", (2, "1993-09-23 22:10:00", "Password is stored in confidential notes section", 1234567908))
     db.execute("INSERT INTO notes (assocUser, dateWritten, note, publicID) VALUES (?, ?, ?, ?);", (2, "1993-09-23 23:00:00", "Secret credentials are stored securely", 1234567909))
