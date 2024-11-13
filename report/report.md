@@ -58,6 +58,8 @@ We also set the `SESSION_COOKIE_HTTPONLY` to `True` to prevent the cookie from b
 
 ## Introduced vulnerabilities
 
-### 1: SQL Injection
+### 1: User Access - SQL Injection
 
-### 2:
+We have setup the first part of the assignment where the attackers are inteded to get user access by using SQL Injection. We have done this by changing the notes such that they are now clickable and upon clicking it redirects you to the note API that gives you the relevant metadata about that note. When in this site the URL is SQL injectable and can be done by changing the url from something like this [http://127.0.0.1:5001/note?noteid=6850822111]() to this [http://127.0.0.1:5001/note?noteid=1' OR '1'='1]().
+
+### 2: Root Access - Command Injection
