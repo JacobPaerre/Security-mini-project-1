@@ -11,8 +11,8 @@ Made by Alex, Carmen, Daniel, & Jacob
     - [Cross-site scripting attacks (XSS)](#cross-site-scripting-attacks-xss)
     - [Secure Session Cookies](#secure-session-cookies)
   - [Introduced vulnerabilities](#introduced-vulnerabilities)
-    - [1: SQL Injection](#1-sql-injection)
-    - [2:](#2)
+    - [1: User Access - SQL Injection](#1-user-access---sql-injection)
+    - [2: Root Access - Command Injection](#2-root-access---command-injection)
 
 ## Fixed vulnerabilities
 
@@ -60,6 +60,8 @@ We also set the `SESSION_COOKIE_HTTPONLY` to `True` to prevent the cookie from b
 
 ### 1: User Access - SQL Injection
 
-We have setup the first part of the assignment where the attackers are inteded to get user access by using SQL Injection. We have done this by changing the notes such that they are now clickable and upon clicking it redirects you to the note API that gives you the relevant metadata about that note. When in this site the URL is SQL injectable and can be done by changing the url from something like this [http://127.0.0.1:5001/note?noteid=6850822111]() to this [http://127.0.0.1:5001/note?noteid=1' OR '1'='1]().
+We have set up the first part of the assignment where the attackers are intended to gain user access by using SQL Injection. We have done this by making the notes clickable, and upon clicking, it redirects you to the note API that provides the relevant metadata about that note. The URL is SQL injectable and can be exploited by changing the URL from something like `http://127.0.0.1:5001/note?noteid=6850822111` to `http://127.0.0.1:5001/note?noteid=1' OR '1'='1`.
 
 ### 2: Root Access - Command Injection
+
+We have set up a CRON job that runs on the server using the student user's privileges. The student user has root privileges, so anything run by that user is executed with root permissions. Additionally, we have created another user on the server who only has access to edit the script executed by the CRON job.
