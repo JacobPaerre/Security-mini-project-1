@@ -2,8 +2,8 @@
 
 Made by Alex, Carmen, Daniel, & Jacob
 
-- [Setup of server](#setup-of-server)
 - [Security: Pen-testing 1](#security-pen-testing-1)
+  - [Setup of server](#setup-of-server)
   - [Fixed vulnerabilities](#fixed-vulnerabilities)
     - [Using `secrets`-library instead of rand](#using-secrets-library-instead-of-rand)
     - [Fixing SQL injection](#fixing-sql-injection)
