@@ -11,6 +11,7 @@ Made by Alex, Carmen, Daniel, & Jacob
     - [Do not check if or inform about passwords already in use when registering](#do-not-check-if-or-inform-about-passwords-already-in-use-when-registering)
     - [Cross-site scripting attacks (XSS)](#cross-site-scripting-attacks-xss)
     - [Secure Session Cookies](#secure-session-cookies)
+  - [Installed packages](#installed-packages)
   - [Introduced vulnerabilities](#introduced-vulnerabilities)
     - [1: User Access - SQL Injection](#1-user-access---sql-injection)
     - [2: Root Access - Command Injection](#2-root-access---command-injection)
@@ -62,6 +63,16 @@ We had a look at XSS to see if it was necessary for us to sanitize the user inpu
 
 We have set the session cookie to be secure, so it will only be sent over HTTPS. This is done by setting the `SESSION_COOKIE_SECURE` to `True` in the config.
 We also set the `SESSION_COOKIE_HTTPONLY` to `True` to prevent the cookie from being accessed by JavaScript.
+
+## Installed packages:
+
+We use crontabs this has been installed by running apt install cron. We have this version: cron/focal,now 3.0pl1-136ubuntu1 amd64
+
+We use werkzeug version 0.16.1
+We use Flask version 1.1.1
+We use Jinja2 version 2.10.1
+We use python version 3.8.10
+We use sqlite version 2.6.0
 
 ## Introduced vulnerabilities
 
