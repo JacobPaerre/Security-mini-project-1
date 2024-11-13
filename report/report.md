@@ -2,6 +2,7 @@
 
 Made by Alex, Carmen, Daniel, & Jacob
 
+- [Setup of server](#setup-of-server)
 - [Security: Pen-testing 1](#security-pen-testing-1)
   - [Fixed vulnerabilities](#fixed-vulnerabilities)
     - [Using `secrets`-library instead of rand](#using-secrets-library-instead-of-rand)
@@ -13,6 +14,10 @@ Made by Alex, Carmen, Daniel, & Jacob
   - [Introduced vulnerabilities](#introduced-vulnerabilities)
     - [1: User Access - SQL Injection](#1-user-access---sql-injection)
     - [2: Root Access - Command Injection](#2-root-access---command-injection)
+
+## Setup of server
+
+We have made a script called control.sh. Here it has three functions. Start, stop and killdb. Start calls app.py to ensure that the app runs on the server. Stop kills the server to ensure that there is no longer anything running. Killdb removes the current database such that anything created on the database not longer exists until the app is run again and does its initial inserts.
 
 ## Fixed vulnerabilities
 
