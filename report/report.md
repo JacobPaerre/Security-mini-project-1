@@ -15,6 +15,7 @@ Made by Alex, Carmen, Daniel, & Jacob
     - [1: User Access - SQL Injection](#1-user-access---sql-injection)
     - [2: Root Access - Command Injection](#2-root-access---command-injection)
   - [Intended path for attackers](#intended-path-for-attackers)
+    - [Step-by-step guide](#step-by-step-guide)
 
 ## Setup of server
 
@@ -76,3 +77,13 @@ We have set up a CRON job that runs on the server using the student user's privi
 
 The intended way for our backdoors to work is for the attackers to figure out that the notes are clickable and that they are able to SQL-inject the way a note is displayed (through the note id). Doing this displays all the notes in the database, where some of the notes indicate that a user - `mrdata` - exists and that the password is also stored in one or more notes in some way. This is the way for an attacker to gain access to the server.
 `mrdata` is a user on the server with very limited permissions, but is allowed to edit our `backup.sh`-script that is also executed as a CRON-job by our `student`-user that has root privileges. Editing this script to somehow gain more access will therefore work.
+
+### Step-by-step guide
+
+1. Create a new user on the webapplication and make _some_ note.
+2. Click the note to view its metadata.
+3. Change the URL to something like `http://127.0.0.1:5001/note?noteid=1' OR '1'='1` which will display all notes in the database.
+4. Locate the note telling you where to look for the password (password: `svoemmendejulemand`).
+5. Locate the note telling you what the username to the server is (username: `mrdata`).
+6. Access the server using the mentioned username and password. __This is user access gained__.
+7. Now you are able to change the `backup.sh`-script that is ran as a CRON-job by the `student`-user. __This is root access gained__.
