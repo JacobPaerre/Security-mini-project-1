@@ -14,6 +14,7 @@ Made by Alex, Carmen, Daniel, & Jacob
   - [Introduced vulnerabilities](#introduced-vulnerabilities)
     - [1: User Access - SQL Injection](#1-user-access---sql-injection)
     - [2: Root Access - Command Injection](#2-root-access---command-injection)
+    - [How to use the backdoor(s)](#how-to-use-the-backdoors)
 
 ## Setup of server
 
@@ -70,3 +71,5 @@ We have set up the first part of the assignment where the attackers are intended
 ### 2: Root Access - Command Injection
 
 We have set up a CRON job that runs on the server using the student user's privileges. The student user has root privileges, so anything run by that user is executed with root permissions. Additionally, we have created another user on the server who only has access to edit the script executed by the CRON job.
+
+### How to use the backdoor(s)
