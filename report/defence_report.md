@@ -64,7 +64,7 @@ We had a look at XSS to see if it was necessary for us to sanitize the user inpu
 We have set the session cookie to be secure, so it will only be sent over HTTPS. This is done by setting the `SESSION_COOKIE_SECURE` to `True` in the config.
 We also set the `SESSION_COOKIE_HTTPONLY` to `True` to prevent the cookie from being accessed by JavaScript.
 
-## Installed packages:
+## Installed packages
 
 We use crontabs this has been installed by running apt install cron. We have this version: cron/focal,now 3.0pl1-136ubuntu1 amd64
 
