@@ -38,6 +38,24 @@ After gaining access to the server using ssh, we played around with the server l
 
 ## Security Goal Violations
 
+During the information-gathering phase, we found a hidden input field that allowed execution of arbitrary commands on the server. This phase directly compromised **Confidentiality** and **Privacy**, as we accessed hidden elements not intended for user view. Additionally, the ability to run server-side commands violated **Access Control** since unauthorized commands were allowed through the input field.
+
+By exploiting the hidden input field to execute shell commands (`whoami`) and eventually adding SSH keys to `authorized_keys`, several security goals were compromised:
+- **Confidentiality**: We gained unauthorized access to sensitive information by listing users on the system.
+- **Access Control**: We bypassed intended restrictions by exploiting the hidden field, which should have had proper access constraints.
+- **Authentication**: Adding an SSH key without proper validation or user authentication means we bypassed security mechanisms to authenticate ourselves as a legitimate user.
+
+After gaining initial access as the `student` user, we escalated our privileges to `root` by exploiting a vulnerability in the `exam.py` file and again several security goals were compromised:
+- **Integrity**: Modifying the environment variable `CMD` to execute arbitrary shell commands compromised the integrity of the system, allowing unauthorized code execution.
+- **Accountability**: By exploiting root privileges, the actions taken were not properly logged or traceable to the original `student` user, undermining the accountability of user actions.
+- **Access Control**: Elevating to `root` compromised the access control policy, allowing us to perform actions restricted to super users.
+
+To maintain access, we created a new user with superuser privileges, ensuring future unrestricted access. Thereby we violated:
+- **Confidentiality**: By adding a backdoor user, we ensured that sensitive information could be continuously accessed without detection.
+- **Access Control**: Creating a new superuser (`attacker`) directly violated access control policies as it circumvented standard authorization and user verification processes.
+- **Non-repudiation**: By modifying `/etc/sudoers` to allow `NOPASSWD` for the `attacker` user, actions performed by this user would not be easily traceable or deniable, affecting non-repudiation.
+
+
 ## Maintaining Access
 
 After we got root access we wanted to make sure that we maintained access. We did this by running the following commands:
